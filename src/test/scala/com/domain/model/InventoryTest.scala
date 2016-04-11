@@ -8,7 +8,7 @@ import scala.collection.JavaConverters._
 
 class InventoryTest extends FunSuite with BeforeAndAfter with Matchers {
 
-  var itemList = new ConcurrentHashMap[String, BigDecimal]().asScala
+  val itemList = new ConcurrentHashMap[String, BigDecimal]().asScala
 
   itemList +=(("AppleFoo" -> BigDecimal(0.35)), ("BananaFoo" -> BigDecimal(0.20)), ("MelonFoo" -> BigDecimal(0.50)), ("LimeFoo" -> BigDecimal(0.15)))
 

@@ -2,50 +2,49 @@ package com.domain.filter
 
 import org.scalatest.{BeforeAndAfter, FunSuite, Matchers}
 
+import scala.collection.mutable.ArrayBuffer
+
 class FiltersTest extends FunSuite with BeforeAndAfter with Matchers {
 
   val offers = new Offers(Map(("Melon" -> 2), ("Lime" -> 3)))
 
   test("Offers applied on one Apple and one Banana (noting should be changed)") {
 
-    val oneItemEach = List("Apple", "Banana")
+    val oneItemEach = ArrayBuffer("Apple", "Banana")
     var afterOffer = offers.current(oneItemEach)
-    assert(afterOffer == List("Apple", "Banana"))
+    assert(afterOffer == ArrayBuffer("Apple", "Banana"))
   }
 
   test("Offers applied on one each product in basket even though we've a few Limes and Melons (noting should be changed)") {
 
-    val order = List("Melon", "Apple", "Lime", "Apple", "Banana", "Melon", "Lime", "Lime")
+    val order = ArrayBuffer("Melon", "Apple", "Lime", "Apple", "Banana", "Melon", "Lime", "Lime")
     var afterOffer = offers.current(order)
-    assert(afterOffer == List("Apple", "Apple", "Banana", "Melon", "Lime", "Lime"))
+    assert(afterOffer == ArrayBuffer("Apple", "Apple", "Banana", "Melon", "Lime", "Lime"))
   }
 
-  test("Two Melons as buy one get one free (it should remove one Melon from the list) ") {
+  test("Two Melons as buy one get one free (it should remove one Melon from the ArrayBuffer) ") {
 
-    val order = List("Melon", "Melon")
+    val order = ArrayBuffer("Melon", "Melon")
     var afterOffer = offers.current(order)
-    assert(afterOffer == List("Melon"))
+    assert(afterOffer == ArrayBuffer("Melon"))
   }
 
-  test("Three Limes for price of two (final list should have two Limes)") {
+  test("Three Limes for price of two (final ArrayBuffer should have two Limes)") {
 
-    val order = List("Lime", "Lime", "Lime")
+    val order = ArrayBuffer("Lime", "Lime", "Lime")
     var afterOffer = offers.current(order)
-    assert(afterOffer == List("Lime", "Lime"))
+    assert(afterOffer == ArrayBuffer("Lime", "Lime"))
   }
 
-  test("Two Melons as buy one get one free and three Limes for price of two (final list should have one Melon and one Lime)") {
+  test("Two Melons as buy one get one free and three Limes for price of two (final ArrayBuffer should have one Melon and one Lime)") {
 
-    val order = List("Lime", "Lime", "Melon", "Apple", "Lime", "Apple", "Banana", "Melon")
+    val order = ArrayBuffer("Lime", "Lime", "Melon", "Apple", "Lime", "Apple", "Banana", "Melon")
     var afterOffer = offers.current(order)
-    assert(afterOffer == List("Lime", "Apple", "Lime", "Apple", "Banana", "Melon"))
+    assert(afterOffer == ArrayBuffer("Lime", "Apple", "Lime", "Apple", "Banana", "Melon"))
   }
 
-  test("Testing empty list ") {
-
-    val order = List()
-    var afterOffer = offers.current(order)
-    assert(afterOffer == List())
+  test("Testing empty ArrayBuffer ") {
+    assert(offers.current(ArrayBuffer()) == ArrayBuffer())
   }
 
 }

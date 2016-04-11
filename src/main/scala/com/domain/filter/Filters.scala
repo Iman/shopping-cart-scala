@@ -2,19 +2,18 @@ package com.domain.filter
 
 import java.util.concurrent.ConcurrentHashMap
 
-import scala.collection.mutable
-
 import scala.collection.JavaConverters._
+import scala.collection.mutable
+import scala.collection.mutable.ArrayBuffer
 
 sealed trait Filters
 
 case class Offers(productToOffer: Map[String, Int]) extends Filters {
 
-  private val productGroup = new ConcurrentHashMap[String, Int]().asScala
+  def current(order: ArrayBuffer[String]) = {
 
-  private val dropList = new mutable.HashSet[String]() with mutable.SynchronizedSet[String]
-
-  def current(order: List[String]) = {
+    val productGroup = new ConcurrentHashMap[String, Int]().asScala
+    val dropList = new mutable.HashSet[String]() with mutable.SynchronizedSet[String]
 
     order.groupBy(item => item).map(x => productGroup.put(x._1, x._2.length))
 
