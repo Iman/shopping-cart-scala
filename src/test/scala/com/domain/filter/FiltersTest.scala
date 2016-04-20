@@ -1,9 +1,12 @@
 package com.domain.filter
 
+import org.junit.runner.RunWith
+import org.scalatest.junit.JUnitRunner
 import org.scalatest.{BeforeAndAfter, FunSuite, Matchers}
 
 import scala.collection.mutable.ArrayBuffer
 
+@RunWith(classOf[JUnitRunner])
 class FiltersTest extends FunSuite with BeforeAndAfter with Matchers {
 
   val offers = new Offers(Map(("Melon" -> 2), ("Lime" -> 3)))

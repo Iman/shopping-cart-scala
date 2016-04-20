@@ -2,16 +2,19 @@ import java.util.concurrent.ConcurrentHashMap
 
 import com.domain.Cart
 import com.domain.filter.Offers
+import org.junit.runner.RunWith
+import org.scalatest.junit.JUnitRunner
 import org.scalatest.{FeatureSpec, GivenWhenThen, Matchers}
 
 import scala.collection.JavaConverters._
+import scala.collection.concurrent.TrieMap
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
+@RunWith(classOf[JUnitRunner])
 class CartFeaturesTest extends FeatureSpec with GivenWhenThen with Matchers {
 
-  private val inventoryList = new ConcurrentHashMap[String, BigDecimal]().asScala
-  inventoryList +=(("Apple" -> BigDecimal(0.35)), ("Banana" -> BigDecimal(0.20)), ("Melon" -> BigDecimal(0.50)), ("Lime" -> BigDecimal(0.15)))
+  private val inventoryList = TrieMap("Apple" -> BigDecimal(0.35),"Banana" -> BigDecimal(0.20),"Melon" -> BigDecimal(0.50),"Lime" -> BigDecimal(0.15))
 
   private val orderList = new ArrayBuffer[String] with mutable.SynchronizedBuffer[String]
   orderList +=("Melon", "Apple", "Lime", "Apple", "Banana", "Melon", "Lime", "Lime")

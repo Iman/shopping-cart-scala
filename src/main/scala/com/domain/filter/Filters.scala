@@ -1,8 +1,5 @@
 package com.domain.filter
 
-import java.util.concurrent.ConcurrentHashMap
-
-import scala.collection.JavaConverters._
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
@@ -12,7 +9,7 @@ case class Offers(productToOffer: Map[String, Int]) extends Filters {
 
   def current(order: ArrayBuffer[String]) = {
 
-    val productGroup = new ConcurrentHashMap[String, Int]().asScala
+    val productGroup = new scala.collection.concurrent.TrieMap[String, Int]()
     val dropList = new mutable.HashSet[String]() with mutable.SynchronizedSet[String]
 
     order.groupBy(item => item).map(x => productGroup.put(x._1, x._2.length))
