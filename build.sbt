@@ -1,4 +1,4 @@
-name := "com-credit-suisse"
+name := "com-domain"
 
 version := "1.0"
 
